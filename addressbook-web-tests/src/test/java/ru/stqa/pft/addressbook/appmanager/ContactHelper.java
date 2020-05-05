@@ -30,4 +30,13 @@ public class ContactHelper extends HelperBase {
     type(By.name("byear"),contactData.getByear());
   }
 
+  public void selectContact() {
+    click(By.name("selected[]"));
+  }
+
+  public void deleteSelectedContact() {
+    click(By.xpath("//input[@value='Delete']"));
+    confirmDel("^Delete 1 addresses[\\s\\S]$");
+  }
+
 }
