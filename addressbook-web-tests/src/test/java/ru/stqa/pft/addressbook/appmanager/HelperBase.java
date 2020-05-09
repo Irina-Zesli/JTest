@@ -37,15 +37,6 @@ public class HelperBase {
     }
   }
 
-  private boolean isElementPresent(By by) {
-    try {
-      wd.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
   protected void select(By locator, String text) {
     click(locator);
     new Select(wd.findElement(locator)).selectByVisibleText(text);
@@ -69,6 +60,15 @@ public class HelperBase {
 
   protected void confirmDel(String regex) {
     assertTrue(closeAlertAndGetItsText().matches(regex));
+  }
+
+  protected boolean isElementPresent(By locator) {
+    try {
+      wd.findElement(locator);
+      return true;
+    } catch (NoSuchElementException ex) {
+      return false;
+    }
   }
 }
 
