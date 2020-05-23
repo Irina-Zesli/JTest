@@ -3,16 +3,16 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-  private int id;
-  private final String firstname;
-  private final String middlename;
-  private final String lastname;
-  private final String address;
-  private final String mobile;
-  private final String email;
-  private final String bday;
-  private final String bmonth;
-  private final String byear;
+  private int id = Integer.MAX_VALUE;
+  private String firstname;
+  private String middlename;
+  private String lastname;
+  private String address;
+  private String mobile;
+  private String email;
+  private String bday;
+  private String bmonth;
+  private String byear;
   private String group;
 
   public ContactData(String firstname, String middlename, String lastname, String address, String mobile, String email, String bday, String bmonth, String byear, String group) {
@@ -87,8 +87,50 @@ public class ContactData {
     return id;
   }
 
-  public void setId(int id) {
+  public ContactData withId(int id) {
     this.id = id;
+    return this;
+  }
+
+  public ContactData withFirstname(String firstname) {
+    this.firstname = firstname;
+    return this;
+  }
+
+  public void setMiddlename(String middlename) {
+    this.middlename = middlename;
+  }
+
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public void setMobile(String mobile) {
+    this.mobile = mobile;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setBday(String bday) {
+    this.bday = bday;
+  }
+
+  public void setBmonth(String bmonth) {
+    this.bmonth = bmonth;
+  }
+
+  public void setByear(String byear) {
+    this.byear = byear;
+  }
+
+  public void setGroup(String group) {
+    this.group = group;
   }
 
   @Override
