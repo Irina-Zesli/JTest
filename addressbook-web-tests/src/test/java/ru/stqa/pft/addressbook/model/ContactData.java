@@ -15,34 +15,6 @@ public class ContactData {
   private String byear;
   private String group;
 
-  public ContactData(String firstname, String middlename, String lastname, String address, String mobile, String email, String bday, String bmonth, String byear, String group) {
-    this.id = Integer.MAX_VALUE;
-    this.firstname = firstname;
-    this.middlename = middlename;
-    this.lastname = lastname;
-    this.address = address;
-    this.mobile = mobile;
-    this.email = email;
-    this.bday = bday;
-    this.bmonth = bmonth;
-    this.byear = byear;
-    this.group = group;
-  }
-
-  public ContactData(int id, String firstname, String middlename, String lastname, String address, String mobile, String email, String bday, String bmonth, String byear, String group) {
-    this.id = id;
-    this.firstname = firstname;
-    this.middlename = middlename;
-    this.lastname = lastname;
-    this.address = address;
-    this.mobile = mobile;
-    this.email = email;
-    this.bday = bday;
-    this.bmonth = bmonth;
-    this.byear = byear;
-    this.group = group;
-  }
-
   public String getFirstname() {
     return firstname;
   }
@@ -97,40 +69,52 @@ public class ContactData {
     return this;
   }
 
-  public void setMiddlename(String middlename) {
+  public ContactData withMiddlename(String middlename) {
     this.middlename = middlename;
+    return this;
   }
 
-  public void setLastname(String lastname) {
+  public ContactData withLastname(String lastname) {
     this.lastname = lastname;
+    return this;
   }
 
-  public void setAddress(String address) {
+  public ContactData withAddress(String address) {
     this.address = address;
+    return this;
   }
 
-  public void setMobile(String mobile) {
+  public ContactData withMobile(String mobile) {
     this.mobile = mobile;
+    return this;
   }
 
-  public void setEmail(String email) {
+  public ContactData withEmail(String email) {
     this.email = email;
+    return this;
   }
 
-  public void setBday(String bday) {
+  public ContactData withBday(String bday) {
     this.bday = bday;
+    return this;
   }
 
-  public void setBmonth(String bmonth) {
+  public ContactData withBmonth(String bmonth)
+  {
     this.bmonth = bmonth;
+    return this;
   }
 
-  public void setByear(String byear) {
+  public ContactData withByear(String byear)
+  {
     this.byear = byear;
+    return this;
   }
 
-  public void setGroup(String group) {
+  public ContactData withGroup(String group)
+  {
     this.group = group;
+    return this;
   }
 
   @Override
@@ -138,13 +122,14 @@ public class ContactData {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ContactData that = (ContactData) o;
-    return Objects.equals(firstname, that.firstname) &&
+    return id == that.id &&
+            Objects.equals(firstname, that.firstname) &&
             Objects.equals(lastname, that.lastname);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstname, lastname);
+    return Objects.hash(id, firstname, lastname);
   }
 
   @Override
