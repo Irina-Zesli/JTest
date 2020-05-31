@@ -14,7 +14,8 @@ public class ContactModificationTests extends TestBase{
   public void ensurePreconditions() {
     if (app.contact().all().size() == 0){
       app.goTo().addNewPage();
-      app.contact().create(new ContactData().withFirstname("Irina").withLastname("Zesli").withBday("5").withBmonth("November").withByear("1977"),true);
+      app.contact().create(new ContactData().withFirstname("Irina").withLastname("Zesli").withBday("5").
+              withBmonth("November").withByear("1977").withGroup("test1"),true);
       app.goTo().homePage();
     }
   }
@@ -26,9 +27,9 @@ public class ContactModificationTests extends TestBase{
     ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstname("Karina").withLastname("Ivanovskaya").withBday("5").withBmonth("December").withByear("1966");
     app.contact().modify(contact);
     app.goTo().homePage();
+    assertThat(app.contact().count(), equalTo(before.size()));
     Contacts after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size()));
-
+    //assertThat(after.size(), equalTo(before.size()));
     assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
   }
 

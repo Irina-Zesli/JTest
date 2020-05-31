@@ -15,12 +15,13 @@ public class ContactCreationTests extends TestBase {
     app.goTo().addNewPage();
     ContactData contact = new ContactData().
             withFirstname("Maria").withMiddlename("V.").withLastname("Asina").withAddress("Penza, Voroshilova, 1-84").
-            withMobile("89613526485").withEmail("zesli@mail.ru").withBday("5").withBmonth("November").withByear("1977").withGroup("test1");
+            withMobilePhone("89613526485").withHomePhone("381302").withEmail("zesli@mail.ru").withBday("5").
+            withBmonth("November").withByear("1977").withGroup("test1");
     app.contact().create(contact,true);
     app.goTo().homePage();
+    assertThat(app.contact().count(), equalTo(before.size()+1));
     Contacts after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size()+1));
-
+    //assertThat(after.size(), equalTo(before.size()+1));
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c)->c.getId()).max().getAsInt()))));
   }
