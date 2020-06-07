@@ -3,7 +3,11 @@ package ru.stqa.pft.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -38,10 +42,10 @@ public class ContactDataGenerator {
     List<ContactData> contacts = generateContacts(count);
     if (format.equals("csv")) {
       saveAsCsv(contacts, new File(file));
-    /*} else if (format.equals("xml")){
+    } else if (format.equals("xml")){
       saveAsXml(contacts, new File(file));
     } else if (format.equals("json")){
-      saveAsJson(contacts, new File(file));*/
+      saveAsJson(contacts, new File(file));
     } else {
       System.out.println("Unrecognized format" + format);
     }
@@ -55,7 +59,7 @@ public class ContactDataGenerator {
             "October","November","December"};
     for (int i=0; i<count; i++){
       ContactData contact = new ContactData().withFirstname(firstnames[(int) (Math.random()*10)])
-              .withLastname(lastnames[(int) (Math.random()*7)]).withBday(String.format("%s",(int) (Math.random()*29)))
+              .withLastname(lastnames[(int) (Math.random()*7)]).withBday(String.format("%s",(int) (Math.random()*28+1)))
               .withAddress(String.format("%s Backer Street %s London",10*i+1,i+2))
               .withBmonth(months[(int) (Math.random()*12)]).withByear(String.format("%s",1970+i))
               .withHomePhone(String.format("%s",556496+2*i)).withGroup("test 1");
@@ -74,4 +78,20 @@ public class ContactDataGenerator {
     writer.close();
   }
 
+  private void saveAsXml(List<ContactData> contacts, File file) throws IOException {
+    XStream xstream = new XStream();
+    xstream.processAnnotations(ContactData.class);
+    String xml = xstream.toXML(contacts);
+    Writer writer = new FileWriter(file);
+    writer.write(xml);
+    writer.close();
+  }
+
+  private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
+    Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+    String json = gson.toJson(contacts);
+    Writer writer = new FileWriter(file);
+    writer.write(json);
+    writer.close();
+  }
 }

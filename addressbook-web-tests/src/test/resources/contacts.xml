@@ -1,0 +1,46 @@
+<list>
+  <contact>
+    <firstname>Bill</firstname>
+    <lastname>Bush</lastname>
+    <address>1 Backer Street 2 London</address>
+    <homePhone>556496</homePhone>
+    <email>Bush_Bill@gmai.com</email>
+    <bday>2</bday>
+    <bmonth>February</bmonth>
+    <byear>1970</byear>
+    <group>test 1</group>
+  </contact>
+  <contact>
+    <firstname>Norma</firstname>
+    <lastname>Atkins</lastname>
+    <address>11 Backer Street 3 London</address>
+    <homePhone>556498</homePhone>
+    <email>Atkins_Norma@gmai.com</email>
+    <bday>19</bday>
+    <bmonth>November</bmonth>
+    <byear>1971</byear>
+    <group>test 1</group>
+  </contact>
+  <contact>
+    <firstname>Bill</firstname>
+    <lastname>Bush</lastname>
+    <address>21 Backer Street 4 London</address>
+    <homePhone>556500</homePhone>
+    <email>Bush_Bill@gmai.com</email>
+    <bday>23</bday>
+    <bmonth>December</bmonth>
+    <byear>1972</byear>
+    <group>test 1</group>
+  </contact>
+  <contact>
+    <firstname>Bill</firstname>
+    <lastname>Atkins</lastname>
+    <address>31 Backer Street 5 London</address>
+    <homePhone>556502</homePhone>
+    <email>Atkins_Bill@gmai.com</email>
+    <bday>25</bday>
+    <bmonth>November</bmonth>
+    <byear>1973</byear>
+    <group>test 1</group>
+  </contact>
+</list>

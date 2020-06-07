@@ -1,0 +1,57 @@
+[
+  {
+    "firstname": "Alice",
+    "lastname": "Bush",
+    "address": "1 Backer Street 2 London",
+    "homePhone": "556496",
+    "email": "Bush_Alice@gmai.com",
+    "bday": "18",
+    "bmonth": "April",
+    "byear": "1970",
+    "group": "test 1"
+  },
+  {
+    "firstname": "Tom",
+    "lastname": "Atkins",
+    "address": "11 Backer Street 3 London",
+    "homePhone": "556498",
+    "email": "Atkins_Tom@gmai.com",
+    "bday": "3",
+    "bmonth": "November",
+    "byear": "1971",
+    "group": "test 1"
+  },
+  {
+    "firstname": "Simon",
+    "lastname": "Bush",
+    "address": "21 Backer Street 4 London",
+    "homePhone": "556500",
+    "email": "Bush_Simon@gmai.com",
+    "bday": "28",
+    "bmonth": "January",
+    "byear": "1972",
+    "group": "test 1"
+  },
+  {
+    "firstname": "Tom",
+    "lastname": "Brown",
+    "address": "31 Backer Street 5 London",
+    "homePhone": "556502",
+    "email": "Brown_Tom@gmai.com",
+    "bday": "17",
+    "bmonth": "July",
+    "byear": "1973",
+    "group": "test 1"
+  },
+  {
+    "firstname": "Bill",
+    "lastname": "Atkins",
+    "address": "41 Backer Street 6 London",
+    "homePhone": "556504",
+    "email": "Atkins_Bill@gmai.com",
+    "bday": "23",
+    "bmonth": "May",
+    "byear": "1974",
+    "group": "test 1"
+  }
+]
