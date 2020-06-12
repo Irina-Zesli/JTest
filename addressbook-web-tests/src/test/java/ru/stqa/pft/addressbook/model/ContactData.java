@@ -3,40 +3,83 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
 @XStreamAlias("contact")
 public class ContactData {
+  @Id
+  @Column(name = "id")
   @XStreamOmitField
   private int id = Integer.MAX_VALUE;
+
   @Expose
+  @Column(name = "firstname")
   private String firstname;
+
+  @Column(name = " middlename")
   private String middlename;
+
   @Expose
+  @Column(name = "lastname")
   private String lastname;
+
   @Expose
+  @Column(name = "address")
+  @Type(type = "text")
   private String address;
+
   @Expose
+  @Column(name = "home")
+  @Type(type = "text")
   private String homePhone;
+
+  @Column(name = "mobile")
+  @Type(type = "text")
   private String mobilePhone;
+
+  @Column(name = "work")
+  @Type(type = "text")
   private String workPhone;
+
+  @Transient
   private String allPhones;
+
   @Expose
+  @Type(type = "text")
   private String email;
+
+  @Type(type = "text")
   private String email2;
+
+  @Type(type = "text")
   private String email3;
+
+  @Transient
   private String allEmails;
+
   @Expose
-  private String bday;
+  @Type(type = "byte")
+  private byte bday;
+
   @Expose
   private String bmonth;
+
   @Expose
   private String byear;
+
   @Expose
+  @Transient
   private String group;
-  private File photo;
+
+  @Column(name = "photo")
+  @Type(type = "text")
+  private String photo;
 
   public String getFirstname() {
     return firstname;
@@ -71,7 +114,7 @@ public class ContactData {
   }
 
   public String getBday() {
-    return bday;
+    return Integer.toString(bday);
   }
 
   public String getBmonth() {
@@ -103,7 +146,7 @@ public class ContactData {
   }
 
   public File getPhoto() {
-    return photo;
+    return new File(photo);
   }
 
   public String getAllEmails() {
@@ -156,7 +199,7 @@ public class ContactData {
   }
 
   public ContactData withBday(String bday) {
-    this.bday = bday;
+    this.bday = new Byte(bday);
     return this;
   }
 
@@ -209,7 +252,7 @@ public class ContactData {
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
