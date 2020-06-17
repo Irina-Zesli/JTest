@@ -3,14 +3,11 @@ package ru.stqa.pft.addressbook.tests;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,14 +55,15 @@ public class GroupCreationTests extends TestBase {
 
   @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) throws Exception {
+    Groups before = app.db().groups();
     app.goTo().groupPage();
-    Groups before = app.group().all();
-    //GroupData group = new GroupData().withName(name).withHeader(header).withFooter(footer);
     app.group().create(group);
     assertThat(app.group().count(), equalTo(before.size()+1));
-    Groups after = app.group().all();
+    Groups after = app.db().groups();
+    String newHeader = group.getHeader().replaceAll("\n","\r\n");
+    String newFooter = group.getFooter().replaceAll("\n", "\r\n");
     assertThat(after, equalTo(
-            before.withAdded(group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
+            before.withAdded(group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()).withHeader(newHeader).withFooter(newFooter))));
   }
 
   @Test(enabled = false)
