@@ -7,7 +7,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -73,13 +75,14 @@ public class ContactData {
   @Expose
   private String byear;
 
-  @Expose
-  @Transient
-  private String group;
-
   @Column(name = "photo")
   @Type(type = "text")
   private String photo;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"),inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups =new HashSet<GroupData>();
 
   public String getFirstname() {
     return firstname;
@@ -123,10 +126,6 @@ public class ContactData {
 
   public String getByear() {
     return byear;
-  }
-
-  public String getGroup() {
-    return group;
   }
 
   public int getId() {
@@ -219,12 +218,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group)
-  {
-    this.group = group;
-    return this;
-  }
-
   public ContactData withAllPhones(String allPhones) {
     this.allPhones = allPhones;
     return this;
@@ -243,6 +236,10 @@ public class ContactData {
   public ContactData withAllEmails(String allEmails) {
     this.allEmails = allEmails;
     return this;
+  }
+
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   @Override
@@ -294,5 +291,10 @@ public class ContactData {
             ", bmonth='" + bmonth + '\'' +
             ", byear='" + byear + '\'' +
             '}';
+  }
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
 }

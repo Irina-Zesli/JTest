@@ -62,7 +62,7 @@ public class ContactDataGenerator {
               .withLastname(lastnames[(int) (Math.random()*7)]).withBday(String.format("%s",(int) (Math.random()*28+1)))
               .withAddress(String.format("%s Backer Street %s London",10*i+1,i+2))
               .withBmonth(months[(int) (Math.random()*12)]).withByear(String.format("%s",1970+i))
-              .withHomePhone(String.format("%s",556496+2*i)).withGroup("test 1");
+              .withHomePhone(String.format("%s",556496+2*i));
       contact = contact.withEmail(String.format("%s_%s@gmai.com",contact.getLastname(),contact.getFirstname()));
       contacts.add(contact);
     }
@@ -72,8 +72,8 @@ public class ContactDataGenerator {
   private void saveAsCsv(List<ContactData> contacts, File file) throws IOException {
     Writer writer = new FileWriter(file);
     for (ContactData contact: contacts){
-      writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s\n",contact.getFirstname(),contact.getLastname(),contact.getAddress(),
-              contact.getBday(),contact.getBmonth(),contact.getByear(),contact.getEmail(),contact.getHomePhone(),contact.getGroup()));
+      writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s\n",contact.getFirstname(),contact.getLastname(),contact.getAddress(),
+              contact.getBday(),contact.getBmonth(),contact.getByear(),contact.getEmail(),contact.getHomePhone()));
     }
     writer.close();
   }
