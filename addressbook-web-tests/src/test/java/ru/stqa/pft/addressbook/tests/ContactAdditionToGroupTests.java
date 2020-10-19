@@ -27,14 +27,17 @@ public class ContactAdditionToGroupTests extends TestBase {
     GroupData addedGroup;
     groups1.removeAll(addedContact.getGroups());
     if (groups1.isEmpty()) {
-
+      System.out.println("in all groups");
     }
     else
     {
       addedGroup = groups1.iterator().next();
       System.out.println(addedGroup);
-    }
+      app.contact().addToGroup(addedContact,addedGroup);
+      app.goTo().homePage();
 
+    }
+    System.out.println(addedContact.getGroups());
   }
 
 }

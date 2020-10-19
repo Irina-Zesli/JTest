@@ -51,6 +51,13 @@ public class HelperBase {
     click(By.xpath("//option[@value='"+ text +"']"));
   }
 
+  protected void selectGr(By locator, String text) {
+    click(locator);
+    new Select(wd.findElement(locator)).selectByValue(text);
+    //click(By.xpath("//option[@value='"+ text +"']"));
+    click(locator);
+  }
+
   protected String closeAlertAndGetItsText() {
     try {
       Alert alert = wd.switchTo().alert();
