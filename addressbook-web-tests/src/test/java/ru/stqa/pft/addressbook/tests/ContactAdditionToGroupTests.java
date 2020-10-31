@@ -7,6 +7,9 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class ContactAdditionToGroupTests extends TestBase {
 
   @BeforeMethod
@@ -14,6 +17,13 @@ public class ContactAdditionToGroupTests extends TestBase {
     if (app.db().groups().size()==0) {
       app.goTo().groupPage();
       app.group().create(new GroupData().withName("test10"));
+      app.goTo().homePage();
+    }
+    if (app.db().contacts().size() == 0){
+      app.goTo().addNewPage();
+      app.contact().create(new ContactData().withFirstname("Irina").withLastname("Zesli").
+              withBday("5").withBmonth("November").withByear("1977").withHomePhone("381302"),true);
+      app.goTo().homePage();
     }
   }
 
@@ -21,23 +31,26 @@ public class ContactAdditionToGroupTests extends TestBase {
   public void testContactAdditionToGroup() throws Exception{
     Groups groups = app.db().groups();
     Contacts before = app.db().contacts();
-
-    ContactData addedContact = before.iterator().next();
-    Groups groups1 = groups;
+    ContactData addedToGroupContact = before.iterator().next();
     GroupData addedGroup;
-    groups1.removeAll(addedContact.getGroups());
-    if (groups1.isEmpty()) {
-      System.out.println("in all groups");
+    groups.removeAll(addedToGroupContact.getGroups());
+    if (groups.isEmpty()) {
+      app.goTo().groupPage();
+      addedGroup = new GroupData().withName("test16").withHeader("test16_header").withFooter("test16_footer");
+      app.group().create(addedGroup);
+      addedGroup.withId(app.db().groups().stream().mapToInt((g)->g.getId()).max().getAsInt());
+      app.goTo().homePage();
     }
     else
     {
-      addedGroup = groups1.iterator().next();
-      System.out.println(addedGroup);
-      app.contact().addToGroup(addedContact,addedGroup);
-      app.goTo().homePage();
-
+      addedGroup = groups.iterator().next();
     }
-    System.out.println(addedContact.getGroups());
+    app.contact().addToGroup(addedToGroupContact,addedGroup);
+    app.goTo().homePage();
+    Contacts after = app.db().contacts();
+    assertThat(after, equalTo(
+            before.without(addedToGroupContact).withAdded(addedToGroupContact.inGroup(addedGroup))));
+
   }
 
 }

@@ -260,12 +260,13 @@ public class ContactData {
             Objects.equals(email2, that.email2) &&
             Objects.equals(email3, that.email3) &&
             Objects.equals(bmonth, that.bmonth) &&
-            Objects.equals(byear, that.byear);
+            Objects.equals(byear, that.byear) &&
+            Objects.equals(groups, that.groups);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, firstname, middlename, lastname, address, homePhone, mobilePhone, workPhone, email, email2, email3, bday, bmonth, byear);
+    return Objects.hash(id, firstname, middlename, lastname, address, homePhone, mobilePhone, workPhone, email, email2, email3, bday, bmonth, byear, groups);
   }
 
   public ContactData withPhoto(File photo) {
@@ -290,11 +291,17 @@ public class ContactData {
             ", bday=" + bday +
             ", bmonth='" + bmonth + '\'' +
             ", byear='" + byear + '\'' +
+            ", groups=" + groups +
             '}';
   }
 
   public ContactData inGroup(GroupData group) {
     groups.add(group);
+    return this;
+  }
+
+  public ContactData removeGroup(GroupData group) {
+    groups.remove(group);
     return this;
   }
 }

@@ -101,6 +101,13 @@ public class ContactHelper extends HelperBase {
     contactCache = null;
   }
 
+  public void delFromGroup(ContactData contact, GroupData group){
+    selectGr(By.name("group"),Integer.toString(group.getId()));
+    selectContactById(contact.getId());
+    click(By.name("remove"));
+    contactCache = null;
+  }
+
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
   }
