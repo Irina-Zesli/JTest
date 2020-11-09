@@ -22,7 +22,7 @@ public class RegistrationTests extends TestBase{
   @Test
   public void testRegistration() throws IOException, MessagingException {
     long now = System.currentTimeMillis();
-    String email = String.format("user%s@localhost.localdomain",now);
+    String email = String.format("user%s@localhost",now);
     String user = String.format("user%s",now);
     String password = "password";
     app.james().createUser(user,password);
@@ -36,7 +36,7 @@ public class RegistrationTests extends TestBase{
   }
 
   private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
-    MailMessage mailMessage = mailMessages.stream().filter((m) ->m.to.equals(email)).findFirst().get();
+    MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
     VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
     return regex.getText(mailMessage.text);
   }
