@@ -23,6 +23,7 @@ public class ApplicationManager {
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
   private ChangePasswordHelper changePasswordHelper;
+  private DbHelper dbHelper;
 
   public ApplicationManager(String browser){
     this.browser = browser;
@@ -32,6 +33,7 @@ public class ApplicationManager {
   public void init() throws IOException {
     String target = System.getProperty("target","local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties",target))));
+    //dbHelper = new DbHelper();
   }
 
   public void stop() {
@@ -65,6 +67,7 @@ public class ApplicationManager {
   public WebDriver getDriver() {
     if (wd==null){
       if (browser.equals(BrowserType.FIREFOX)) {
+        //System.setProperty("webdriver.gecko.driver","D:/111/geckodriver.exe");
         wd = new FirefoxDriver();
       } else if (browser.equals(BrowserType.CHROME)) {
         wd = new ChromeDriver();
@@ -96,5 +99,12 @@ public class ApplicationManager {
       changePasswordHelper = new ChangePasswordHelper(this);
     }
     return changePasswordHelper;
+  }
+
+  public DbHelper db(){
+    if (dbHelper==null) {
+      dbHelper = new DbHelper(this);
+    }
+    return dbHelper;
   }
 }
