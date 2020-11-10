@@ -49,12 +49,17 @@ public class UserData {
     return email;
   }
 
+  public String getPassword() {
+    return password;
+  }
+
   @Override
   public String toString() {
     return "UserData{" +
             "id=" + id +
             ", username='" + username + '\'' +
             ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
             '}';
   }
 }
