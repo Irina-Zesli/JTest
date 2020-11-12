@@ -1,6 +1,7 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.apache.commons.net.telnet.TelnetClient;
+import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
 
 import javax.mail.*;
@@ -27,6 +28,7 @@ public class JamesHelper {
     this.app = app;
     telnet = new TelnetClient();
     mailSession = Session.getDefaultInstance(System.getProperties());
+    mailserver = app.getProperty("mailserver.host");
   }
 
   public boolean doesUserExist(String name){
@@ -53,7 +55,7 @@ public class JamesHelper {
   }
 
   private void initTelnetSession() {
-    mailserver = app.getProperty("mailserver.host");
+    //mailserver = app.getProperty("mailserver.host");
     int port = Integer.parseInt(app.getProperty("mailserver.port"));
     String login = app.getProperty("mailserver.adminlogin");
     String password = app.getProperty("mailserver.adminpassword");
@@ -131,9 +133,7 @@ public class JamesHelper {
 
   public List<MailMessage> getAllMail(String username, String password) throws MessagingException {
     Folder inbox = openInbox(username,password);
-    System.out.println(inbox.getMessageCount());
     List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m)->toModelMail(m)).collect(Collectors.toList());
-    //System.out.println(messages);
     closeFolder(inbox);
     return messages;
   }
@@ -145,7 +145,7 @@ public class JamesHelper {
 
   private Folder openInbox(String username, String password) throws MessagingException {
     store = mailSession.getStore("pop3");
-    store.connect(mailserver,username,password);
+    store.connect(mailserver, username, password);
     Folder folder = store.getDefaultFolder().getFolder("INBOX");
     folder.open(Folder.READ_WRITE);
     return folder;
@@ -153,7 +153,7 @@ public class JamesHelper {
 
   public static MailMessage toModelMail(Message m) {
     try {
-      return new MailMessage(m.getAllRecipients()[0].toString(),(String)m.getContent());
+      return new MailMessage(m.getAllRecipients()[0].toString(),m.getSentDate(),(String)m.getContent());
     } catch (MessagingException e) {
       e.printStackTrace();
       return null;
@@ -162,4 +162,7 @@ public class JamesHelper {
       return null;
     }
   }
+
+
+
 }

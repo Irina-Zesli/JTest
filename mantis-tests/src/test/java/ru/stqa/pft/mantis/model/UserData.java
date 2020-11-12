@@ -19,9 +19,6 @@ public class UserData {
   @Column(name = "email")
   private String email;
 
-  @Column(name = "password")
-  private String password;
-
   public UserData withId(int id) {
     this.id = id;
     return this;
@@ -49,17 +46,12 @@ public class UserData {
     return email;
   }
 
-  public String getPassword() {
-    return password;
-  }
-
   @Override
   public String toString() {
     return "UserData{" +
             "id=" + id +
             ", username='" + username + '\'' +
             ", email='" + email + '\'' +
-            ", password='" + password + '\'' +
             '}';
   }
 }
