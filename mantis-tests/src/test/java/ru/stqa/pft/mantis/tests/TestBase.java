@@ -3,7 +3,9 @@ package ru.stqa.pft.mantis.tests;
 import biz.futureware.mantis.rpc.soap.client.IssueData;
 import biz.futureware.mantis.rpc.soap.client.MantisConnectLocator;
 import biz.futureware.mantis.rpc.soap.client.MantisConnectPortType;
+import biz.futureware.mantis.rpc.soap.client.ObjectRef;
 import org.openqa.selenium.remote.BrowserType;
+import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.mantis.appmanager.ApplicationManager;
@@ -35,9 +37,13 @@ public class TestBase {
     MantisConnectPortType mc = new MantisConnectLocator()
             .getMantisConnectPort(new URL(app.getProperty("soap.url")));
     IssueData issueData = mc.mc_issue_get(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"),BigInteger.valueOf(issueId));
-    /*if (issueData.getResolution().equals(true)){
+    /* Резолюция 20 - fixed */
+    return  (issueData.getResolution().getId().intValue() != 20);
+  }
 
-    }*/
-    return true;
+  public void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+    if (isIssueOpen(issueId)) {
+      throw new SkipException("Ignored because of issue " + issueId);
+    }
   }
 }
