@@ -37,8 +37,8 @@ public class TestBase {
     MantisConnectPortType mc = new MantisConnectLocator()
             .getMantisConnectPort(new URL(app.getProperty("soap.url")));
     IssueData issueData = mc.mc_issue_get(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"),BigInteger.valueOf(issueId));
-    /* Резолюция 20 - fixed */
-    return  (issueData.getResolution().getId().intValue() != 20);
+    /* State 90 - closed, 80 - resolved */
+    return  (issueData.getStatus().getId().intValue() != 90)&&(issueData.getStatus().getId().intValue() != 80);
   }
 
   public void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
