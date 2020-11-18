@@ -55,6 +55,7 @@ public class GroupCreationTests extends TestBase {
 
   @Test(dataProvider = "validGroupsFromJson")
   public void testGroupCreation(GroupData group) throws Exception {
+    skipIfNotFixed(88);
     Groups before = app.db().groups();
     app.goTo().groupPage();
     app.group().create(group);
@@ -66,8 +67,9 @@ public class GroupCreationTests extends TestBase {
             before.withAdded(group.withId(after.stream().mapToInt((g)->g.getId()).max().getAsInt()).withHeader(newHeader).withFooter(newFooter))));
   }
 
-  @Test(enabled = false)
+  @Test(enabled = true)
   public void testBadGroupCreation() throws Exception {
+    skipIfNotFixed(6);
     app.goTo().groupPage();
     Groups before = app.group().all();
     GroupData group = new GroupData().withName("test2'");
